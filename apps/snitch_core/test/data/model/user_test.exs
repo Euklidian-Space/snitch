@@ -2,6 +2,8 @@ defmodule Snitch.Data.Model.UserTest do
   use ExUnit.Case, async: true
   use Snitch.DataCase
 
+  import Snitch.Profiler
+
   alias Snitch.Data.Model.User
   alias Snitch.Data.Schema.User, as: UserSchema
 
@@ -19,7 +21,11 @@ defmodule Snitch.Data.Model.UserTest do
 
   describe "create/1" do
     test "inserts with valid attributes", %{valid_attrs: va} do
-      assert {:ok, %UserSchema{}} = User.create(va)
+      # assert {:ok, %UserSchema{}} = User.create(va)
+      profile do
+        User.create(va)
+      end
+      # {:ok, %UserSchema{}} = User.create(va)
     end
 
     test "FAILS for invalid attributes", %{valid_attrs: va} do
